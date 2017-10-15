@@ -42,10 +42,9 @@ public class BackgroundController : MonoBehaviour {
 
     }
 
-
+    //Resets the current position of the background
     private void Reset()
     {
-
         _currentPos = new Vector2(startX, 0);
     }
 }
