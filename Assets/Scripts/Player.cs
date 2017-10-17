@@ -32,7 +32,7 @@ public class Player{
         set
         {
             _score = value;
-            gameCtrl.updateUI();
+            gameCtrl.UpdateUI();
         }
     }
 
@@ -47,11 +47,11 @@ public class Player{
             _health = value;
             if(_health <= 0)
             {
-                gameCtrl.gameOver();
+                gameCtrl.GameOver();
             }
             else
             {
-                gameCtrl.updateUI();
+                gameCtrl.UpdateUI();
             }
         }
     }

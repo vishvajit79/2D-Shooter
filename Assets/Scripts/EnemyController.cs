@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Enenmy controller script  - For Birds*
-public class EnemyController : MonoBehaviour {
+public class EnemyController : MonoBehaviour
+{
 
     [SerializeField]
     float minXSpeed = 2f;
@@ -19,13 +20,15 @@ public class EnemyController : MonoBehaviour {
     private Vector2 _currentPosition;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _transform = gameObject.GetComponent<Transform>();
         Reset();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         _currentPosition = _transform.position;
         _currentPosition -= _currentSpeed;
         _transform.position = _currentPosition;
@@ -35,7 +38,7 @@ public class EnemyController : MonoBehaviour {
         {
             Reset();
         }
-	}
+    }
 
     //Resets the position of enemy with a random speed
     public void Reset()
@@ -44,7 +47,7 @@ public class EnemyController : MonoBehaviour {
         float ySpeed = Random.Range(minYSpeed, maxYSpeed);
 
         _currentSpeed = new Vector2(xSpeed, ySpeed);
-        float y = Random.Range(85, -87);
+        float y = Random.Range(72, -64);
         _transform.position = new Vector2(112 + Random.Range(0, 50), y);
     }
 }
