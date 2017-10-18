@@ -5,41 +5,56 @@ using UnityEngine;
 public class BulletController : MonoBehaviour {
 
     [SerializeField]
-    public float speed;
+    float xSpeed = 2f;
+    [SerializeField]
+    float yPos;
+
     private Transform _transform;
-    private float _xBounds;
-    private float _yBounds;
+    private Vector2 _currentSpeed;
+    private Vector2 _currentPosition;
 
-    // Methods //
-
+    // Use this for initialization
     void Start()
     {
-
-        _transform = GetComponent<Transform>();
+        _transform = gameObject.GetComponent<Transform>();
+        Reset();
     }
 
-    // Translates the bullet forwards. Distroys them after leaving the Camera.
-    void Update()
+    public void Reset()
     {
 
-        // Get bounds of the Camera.main
-        _xBounds = Camera.main.orthographicSize * Camera.main.aspect;
-        _yBounds = Camera.main.orthographicSize;
+        _currentSpeed = new Vector2(xSpeed, 0);
 
-        _transform.Translate(Vector3.up * speed);
 
-        if (Mathf.Abs(transform.position.x) > _xBounds ||
-                Mathf.Abs(transform.position.y) > _yBounds)
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        _currentPosition = _transform.position;
+        _currentPosition += _currentSpeed;
+        _transform.position = _currentPosition;
+
+        if (_currentPosition.x >= 120)
         {
             Destroy(gameObject);
         }
     }
 
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
+    }
+
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag.Equals("Enemy")){
+        if (collider.gameObject.tag.Equals("Enemy"))
+        {
             Debug.Log("Bullet collision\n");
             Player.Instance.Score += 100;
+            collider.gameObject.GetComponent<EnemyController>().Reset();
+            Destroy(gameObject);
         }
     }
 }

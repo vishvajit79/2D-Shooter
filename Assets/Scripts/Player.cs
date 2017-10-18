@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player{
+public class Player
+{
 
-    public GameController gameCtrl;
+    public GameController gameController;
 
     private int _health = 100;
     private int _score = 0;
@@ -32,7 +33,7 @@ public class Player{
         set
         {
             _score = value;
-            gameCtrl.UpdateUI();
+            gameController.updateUI();
         }
     }
 
@@ -45,14 +46,17 @@ public class Player{
         set
         {
             _health = value;
-            if(_health <= 0)
+            if (_health <= 0)
             {
-                gameCtrl.GameOver();
+                gameController.gameOver();
             }
             else
             {
-                gameCtrl.UpdateUI();
+                gameController.updateUI();
             }
         }
     }
+
+    
+
 }

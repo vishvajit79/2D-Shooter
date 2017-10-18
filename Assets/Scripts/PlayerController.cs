@@ -15,8 +15,8 @@ public class PlayerController : MonoBehaviour
     private float leftY;
     [SerializeField]
     private float rightY;
-	[SerializeField]
-	private Transform _shoot;
+    [SerializeField]
+    GameObject bulletObject;
 
     private Transform _transform;
     private Vector2 _currentPos;
@@ -34,32 +34,39 @@ public class PlayerController : MonoBehaviour
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
-		Shoot ();
 
- 
         if (moveHorizontal < 0)
         {
             //if left arrow is pressed move left = A
             _currentPos -= new Vector2(speed, 0);
         }
- 
+
         if (moveHorizontal > 0)
         {
             //if right arrow is pressed move right = D
             _currentPos += new Vector2(speed, 0);
         }
 
-        if(moveVertical < 0)
+        if (moveVertical < 0)
         {
             //if up arrow is pressed move up = W
             _currentPos -= new Vector2(0, speed);
         }
 
-        if(moveVertical > 0)
+        if (moveVertical > 0)
         {
             //if down arrow is pressed move down = S
             _currentPos += new Vector2(0, speed);
         }
+
+        if (Input.GetKeyDown("space") || Input.GetButtonDown("Fire1"))
+        {
+            Debug.Log("Shoot");
+            Instantiate(bulletObject)
+                .GetComponent<Transform>()
+                .position = new Vector2(_currentPos.x + 15, _currentPos.y - 3);
+        }
+
 
         //Checking boundaries of the player
         CheckBounds();
@@ -93,11 +100,4 @@ public class PlayerController : MonoBehaviour
             _currentPos.y = rightY;
         }
     }
-
-	private void Shoot ()
-	{
-		if (Input.GetKeyDown("space")) {
-			Debug.Log ("Shoot");
-		}
-	}
 }
