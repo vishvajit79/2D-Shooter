@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         _transform = gameObject.GetComponent<Transform>();
+        StartCoroutine(StartDifficultLevel());
         Reset();
     }
 
@@ -49,5 +50,14 @@ public class EnemyController : MonoBehaviour
         _currentSpeed = new Vector2(xSpeed, ySpeed);
         float y = Random.Range(72, -64);
         _transform.position = new Vector2(112 + Random.Range(0, 50), y);
+    }
+
+    IEnumerator StartDifficultLevel()
+    {
+        int time = Random.Range(10, 30);
+
+        yield return new WaitForSeconds((float)time);
+        Instantiate(gameObject);
+        StartCoroutine(StartDifficultLevel());
     }
 }
