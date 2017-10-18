@@ -30,3 +30,4 @@ C:\Users\vishv\Documents\2D Shooter\Temp\bin\Debug\UnityEngine.HoloLens.xml
 C:\Users\vishv\Documents\2D Shooter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
 C:\Users\vishv\Documents\2D Shooter\obj\Debug\Assembly-CSharp.dll
 C:\Users\vishv\Documents\2D Shooter\obj\Debug\Assembly-CSharp.pdb
+C:\Users\vishv\Documents\2D Shooter\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

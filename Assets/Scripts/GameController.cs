@@ -8,69 +8,55 @@ public class GameController : MonoBehaviour {
 
     
     [SerializeField]
-    Text Menu;
+    public Text Menu;
     [SerializeField]
-    Text CurrentScore;
+    public Text Score;
     [SerializeField]
-    Text HighScore;
+    public Text Health;
     [SerializeField]
-    Button button;
+    public Text CurrentScore;
     [SerializeField]
-    Text buttonText;
+    public Text HighScore;
     [SerializeField]
-    GameObject[] gamePlayObjects;
-    public bool gamePaused;
-    public GameController Instance;
-
-    void Awake()
-    {
-
-        if (Instance == null)
-        {
-            DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
-        else if (Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        button = GetComponentInChildren<Button>();
-        buttonText = button.GetComponentInChildren<Text>();
-        Menu = GetComponentInChildren<Text>();
-        gamePaused = false;
-        gamePlayObjects = new GameObject[] {
-                                                 GameObject.Find("Gameplay")};
-        button.onClick.AddListener(
-            () => {
-                gamePaused = !gamePaused;
-                StopGame(false);
-            });
-    }
+    public Button button;
+    [SerializeField]
+    public Text buttonText;
+    [SerializeField]
+    public GameObject[] gamePlayObjects;
 
     private void initialize()
     {
-
         Player.Instance.Score = 0;
         Player.Instance.Health = 100;
+        Player.Instance.HighScore = PlayerPrefs.GetInt("highScore");
 
         HighScore.gameObject.SetActive(false);
         button.gameObject.SetActive(false);
         Menu.gameObject.SetActive(false);
         CurrentScore.gameObject.SetActive(false);
+        Health.gameObject.SetActive(true);
+        Score.gameObject.SetActive(true);
+        button.gameObject.SetActive(false);
     }
 
     public void gameOver()
     {
-        HighScore.gameObject.SetActive(false);
-        button.gameObject.SetActive(true);
+        StopGame();
+        PlayerPrefs.Save();
         HighScore.gameObject.SetActive(true);
+        button.gameObject.SetActive(true);
         Menu.gameObject.SetActive(true);
         CurrentScore.gameObject.SetActive(true);
-        Time.timeScale = 0;
+        Health.gameObject.SetActive(false);
+        Score.gameObject.SetActive(false);
+        buttonText.text = "Restart";
+        
     }
 
     public void updateUI()
     {
+        Health.text = "Health: " + Player.Instance.Health;
+        Score.text = "Score: " + Player.Instance.Score;
         HighScore.text = "High Score: " + Player.Instance.HighScore;
         CurrentScore.text = "Your Score: " + Player.Instance.Score;
     }
@@ -78,25 +64,22 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        gamePaused = true;
         Player.Instance.gameController = this;
         initialize();
-        StopGame();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Submit") ||
-               (Menu.text == "Paused" &&
-                Input.GetButtonDown("Cancel")))
-        {
-            StopGame(false);
 
-        }
     }
 
-    // Pauses or resumes the game by changing the Time.timeScale.
+    public void RestartButton()
+    {
+        StopGame(false);
+        SceneManager.LoadScene("main");
+    }
+
     public void StopGame(bool stop = true)
     {
 

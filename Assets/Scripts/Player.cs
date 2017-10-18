@@ -9,6 +9,7 @@ public class Player
 
     private int _health = 100;
     private int _score = 0;
+    private int _highScore;
 
     private static Player _instance;
 
@@ -34,6 +35,12 @@ public class Player
         {
             _score = value;
             gameController.updateUI();
+            if(_score > _highScore)
+            {
+                _highScore = _score;
+                PlayerPrefs.SetInt("highScore", _highScore);
+                gameController.updateUI();
+            }
         }
     }
 
@@ -48,6 +55,8 @@ public class Player
             _health = value;
             if (_health <= 0)
             {
+                PlayerPrefs.Save();
+                gameController.updateUI();
                 gameController.gameOver();
             }
             else
@@ -57,6 +66,25 @@ public class Player
         }
     }
 
-    
+    public int HighScore
+    {
+        get
+        {
+            return _highScore;
+        }
+        set
+        {
+            _highScore = value;
+            if (_score > _highScore)
+            {
+                _highScore = _score;
+                gameController.updateUI();
+            }
+            PlayerPrefs.SetInt("highScore", _highScore);
+            gameController.updateUI();
+        }
+    }
+
+
 
 }

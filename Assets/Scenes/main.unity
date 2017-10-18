@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 269407605}
   - component: {fileID: 269407604}
   - component: {fileID: 269407608}
-  - component: {fileID: 269407609}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -361,26 +360,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Menu: {fileID: 1409002143}
+  Score: {fileID: 231536093}
+  Health: {fileID: 457557681}
   CurrentScore: {fileID: 392814801}
   HighScore: {fileID: 1669388914}
   button: {fileID: 1395102993}
   buttonText: {fileID: 1962563903}
   gamePlayObjects: []
-  gamePaused: 0
-  Instance: {fileID: 269407608}
---- !u!114 &269407609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 269407603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f592fa7daf4c644f96ae92a5a3b8ad0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: {fileID: 457557681}
-  Score: {fileID: 231536093}
 --- !u!1 &392814799
 GameObject:
   m_ObjectHideFlags: 0
@@ -1037,9 +1023,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8dee4893e96bcd4c8851f513a2bc605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  startX: 216.8
-  endX: -217.4
+  speed: 1.5
+  startX: 217.5
+  endX: -217.5
 --- !u!212 &1342237858
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1216,7 +1202,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1395102994}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 269407608}
+        m_MethodName: RestartButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1395102994
@@ -1543,7 +1540,6 @@ GameObject:
   - component: {fileID: 2020488998}
   - component: {fileID: 2020488997}
   - component: {fileID: 2020489002}
-  - component: {fileID: 2020489003}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1701,15 +1697,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &2020489003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2020488996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 692360db8e9a3ea41994d9cc5e66ec56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nativeResolution: {x: 240, y: 160}
