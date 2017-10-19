@@ -8,11 +8,11 @@ public class PlayerCollision : MonoBehaviour {
     [SerializeField]
     GameObject explosion;
 
-    private AudioSource _playerSound;
+    private AudioSource _explosionSound;
 
 	// Use this for initialization
 	void Start () {
-        _playerSound = gameObject.GetComponent<AudioSource>();
+        _explosionSound = gameObject.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -49,9 +49,9 @@ public class PlayerCollision : MonoBehaviour {
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             Debug.Log("Enemy collision\n");
-            if(_playerSound != null)
+            if(_explosionSound != null)
             {
-                _playerSound.Play();
+                _explosionSound.Play();
             }
             Instantiate (explosion).GetComponent<Transform>().position = collision.gameObject.GetComponent<Transform>().position;
             collision.gameObject.GetComponent<EnemyController>().Reset();

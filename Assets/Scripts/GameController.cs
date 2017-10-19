@@ -22,14 +22,17 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     public Text buttonText;
     [SerializeField]
+    public Button Quit;
     public GameObject[] gamePlayObjects;
+    [SerializeField]
+    public static GameController Instance;
 
     private void initialize()
     {
+        
         Player.Instance.Score = 0;
         Player.Instance.Health = 100;
         Player.Instance.HighScore = PlayerPrefs.GetInt("highScore");
-
         HighScore.gameObject.SetActive(false);
         button.gameObject.SetActive(false);
         Menu.gameObject.SetActive(false);
@@ -37,7 +40,10 @@ public class GameController : MonoBehaviour {
         Health.gameObject.SetActive(true);
         Score.gameObject.SetActive(true);
         button.gameObject.SetActive(false);
+        Quit.gameObject.SetActive(false);
     }
+
+
 
     public void gameOver()
     {
@@ -45,12 +51,29 @@ public class GameController : MonoBehaviour {
         PlayerPrefs.Save();
         HighScore.gameObject.SetActive(true);
         button.gameObject.SetActive(true);
+        Quit.gameObject.SetActive(true);
         Menu.gameObject.SetActive(true);
         CurrentScore.gameObject.SetActive(true);
         Health.gameObject.SetActive(false);
         Score.gameObject.SetActive(false);
-        buttonText.text = "Restart";
-        
+        Menu.text = Menu.text + "\nGame Over";
+        buttonText.text = "Retry";
+    }
+
+    public void gameStart()
+    {
+        StopGame();
+        Player.Instance.HighScore = PlayerPrefs.GetInt("highScore");
+        PlayerPrefs.SetInt("hasPlayed", 0);
+        HighScore.gameObject.SetActive(true);
+        Quit.gameObject.SetActive(true);
+        button.gameObject.SetActive(true);
+        Menu.gameObject.SetActive(true);
+        CurrentScore.gameObject.SetActive(false);
+        Health.gameObject.SetActive(false);
+        Score.gameObject.SetActive(false);
+        buttonText.text = "Start";
+
     }
 
     public void updateUI()
@@ -65,19 +88,31 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         Player.Instance.gameController = this;
-        initialize();
+        gameStart();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            gameOver();
+            buttonText.text = "Resume";
+        }
     }
 
     public void RestartButton()
     {
-        StopGame(false);
-        SceneManager.LoadScene("main");
+        initialize();
+        Time.timeScale = 1;
+    }
+
+    public void QuitButton()
+    {
+        PlayerPrefs.Save();
+        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 
     public void StopGame(bool stop = true)

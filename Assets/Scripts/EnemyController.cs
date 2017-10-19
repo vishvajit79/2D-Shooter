@@ -54,10 +54,14 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator StartDifficultLevel()
     {
-        int time = Random.Range(10, 30);
+        if(GameObject.FindGameObjectsWithTag("Enemy").Length < 10)
+        {
+            int time = Random.Range(10, 20);
 
-        yield return new WaitForSeconds((float)time);
-        Instantiate(gameObject);
-        StartCoroutine(StartDifficultLevel());
+            yield return new WaitForSeconds((float)time);
+            Instantiate(gameObject);
+            StartCoroutine(StartDifficultLevel());
+        }
+        
     }
 }

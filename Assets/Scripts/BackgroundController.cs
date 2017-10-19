@@ -12,6 +12,8 @@ public class BackgroundController : MonoBehaviour {
     [SerializeField]
     private float endX;
 
+    public AudioSource _backgroundSound;
+
     //private variables
     private Transform _transform;
     private Vector2 _currentPos;

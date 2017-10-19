@@ -9,6 +9,7 @@ public class BulletController : MonoBehaviour {
     [SerializeField]
     float yPos;
 
+    private AudioSource _birdKillSound;
     private Transform _transform;
     private Vector2 _currentSpeed;
     private Vector2 _currentPosition;
@@ -16,6 +17,7 @@ public class BulletController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        _birdKillSound = gameObject.GetComponent<AudioSource>();
         _transform = gameObject.GetComponent<Transform>();
         Reset();
     }
@@ -52,6 +54,10 @@ public class BulletController : MonoBehaviour {
         if (collider.gameObject.tag.Equals("Enemy"))
         {
             Debug.Log("Bullet collision\n");
+            if (_birdKillSound != null)
+            {
+                _birdKillSound.Play();
+            }
             Player.Instance.Score += 100;
             collider.gameObject.GetComponent<EnemyController>().Reset();
             Destroy(gameObject);

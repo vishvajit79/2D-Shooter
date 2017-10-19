@@ -10,6 +10,7 @@ public class Player
     private int _health = 100;
     private int _score = 0;
     private int _highScore;
+    private int _hasPlayed;
 
     private static Player _instance;
 
@@ -84,7 +85,4 @@ public class Player
             gameController.updateUI();
         }
     }
-
-
-
 }
