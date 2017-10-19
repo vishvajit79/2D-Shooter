@@ -20,3 +20,6 @@ comment your highscore and feel free to give me any suggestion on improving the 
 InifniteWarfare.exe file and play.</h6>
 
 
+<h4>Windows platform .exe is coming soon!💯</h4>
+
+
