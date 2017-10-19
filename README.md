@@ -20,6 +20,8 @@ comment your highscore and feel free to give me any suggestion on improving the 
 InifniteWarfare.exe file and play.</h6>
 
 
-<h4>Windows platform .exe is coming soon!💯</h4>
+<h4>Windows platform .exe is working!💯</h4>
+Click the link and download the zip file. Unzip the file and run Infinite Warfare.exe and play🤾‍🤾‍
+<a href="https://github.com/vishvajit79/2D-Shooter/tree/master/Infinite%20Warfare%20-%20Windows" href="_blank" class="btn">Download here</a>
 
 
