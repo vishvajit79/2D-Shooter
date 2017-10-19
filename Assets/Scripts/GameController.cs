@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 //////////////////////////////////////////////////////////////////////// 
 //                    COMP3064 CRN13899 Assignment 1                  //
@@ -169,12 +168,7 @@ public class GameController : MonoBehaviour {
     //this method will close the application
     public void QuitButton()
     {
-        PlayerPrefs.Save();
-        if(EditorApplication.isPlaying)
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-        }
-        
+        PlayerPrefs.Save();        
         Application.Quit();
     }
 
