@@ -1,5 +1,7 @@
 # Infinite Warfare
 
+<h4>🙌Please use 1024 * 768 resolution🙌</h4>
+
 This is a simple two-dimensional shooter game. There is a rocket which acts as a player and lots of birds as an enemy. The player is lost in th urban city
 and travels through enemy for it's attempt to go somewhere safe. Rocket has infinite bullet which can kill birds and gets a score for each enemy
 killed. If the player collides with enemy, it loses health.
