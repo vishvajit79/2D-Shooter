@@ -19,12 +19,17 @@ public class PlayerCollision : MonoBehaviour {
     [SerializeField]
     GameObject explosion;
 
+    public AudioSource[] sounds;
     //explosion audio source
-    private AudioSource _explosionSound;
+    public AudioSource _explosionSound;
+    //balloon audio source
+    public AudioSource _balloonSound;
 
-	// Use this for initialization
-	void Start () {
-        _explosionSound = gameObject.GetComponent<AudioSource>();
+    // Use this for initialization
+    void Start () {
+        sounds = GetComponents<AudioSource>();
+        _explosionSound = sounds[0];
+        _balloonSound = sounds[1];
 	}
 
     //flashes player after collision for 3 times
@@ -72,6 +77,21 @@ public class PlayerCollision : MonoBehaviour {
             Player.Instance.Health -= 10;
             //calls blink coroutine to flash player when it collides with enemy
             StartCoroutine("Blink");
+        }
+
+        //if player collides with balloon, it gets 200 score
+        if (collision.gameObject.tag.Equals("Balloon"))
+        {
+            Debug.Log("Bonus Points\n");
+            //plays explosion sound if it's not null
+            if (_balloonSound != null)
+            {
+                _balloonSound.Play();
+            }
+            //resets the position of balloon
+            collision.gameObject.GetComponent<BalloonController>().Reset();
+            //player scores 200 points
+            Player.Instance.Score += 200;
         }
     }
 }
