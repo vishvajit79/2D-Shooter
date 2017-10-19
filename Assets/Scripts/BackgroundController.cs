@@ -2,9 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//////////////////////////////////////////////////////////////////////// 
+//                    COMP3064 CRN13899 Assignment 1                  //
+//                       Friday, October 20, 2016                     //
+//                    Instructor: Przemyslaw Pawluk                   //
+//                     Vishvajit Kher  - 101015270                    //
+//                    vishvajit.kher@georgebrown.ca                   //
+////////////////////////////////////////////////////////////////////////
+
+//Background script for moving background in horizontal aixs
+//Background moves from right to left
 public class BackgroundController : MonoBehaviour {
 
-    //Public variables
+    //variables
     [SerializeField]
     private float speed = 5f;
     [SerializeField]
@@ -12,9 +22,10 @@ public class BackgroundController : MonoBehaviour {
     [SerializeField]
     private float endX;
 
+    //background audio source
     public AudioSource _backgroundSound;
 
-    //private variables
+    //some more private variables
     private Transform _transform;
     private Vector2 _currentPos;
 

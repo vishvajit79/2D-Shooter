@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//////////////////////////////////////////////////////////////////////// 
+//                    COMP3064 CRN13899 Assignment 1                  //
+//                       Friday, October 20, 2016                     //
+//                    Instructor: Przemyslaw Pawluk                   //
+//                     Vishvajit Kher  - 101015270                    //
+//                    vishvajit.kher@georgebrown.ca                   //
+////////////////////////////////////////////////////////////////////////
+
 //Player controller script  - For Rocket*
 public class PlayerController : MonoBehaviour
 {
+    //private variables
     [SerializeField]
     private float speed = 0.5f;
     [SerializeField]
@@ -18,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject bulletObject;
 
+    //some other variables
     private Transform _transform;
     private Vector2 _currentPos;
 
@@ -59,6 +69,7 @@ public class PlayerController : MonoBehaviour
             _currentPos += new Vector2(0, speed);
         }
 
+        //player shoots when space or left mouse click is triggered
         if (Input.GetKeyDown("space") || Input.GetButtonDown("Fire1"))
         {
             Debug.Log("Shoot");

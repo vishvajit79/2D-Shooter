@@ -2,10 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//////////////////////////////////////////////////////////////////////// 
+//                    COMP3064 CRN13899 Assignment 1                  //
+//                       Friday, October 20, 2016                     //
+//                    Instructor: Przemyslaw Pawluk                   //
+//                     Vishvajit Kher  - 101015270                    //
+//                    vishvajit.kher@georgebrown.ca                   //
+////////////////////////////////////////////////////////////////////////
+
 //Enenmy controller script  - For Birds*
 public class EnemyController : MonoBehaviour
 {
-
+    //some variables
     [SerializeField]
     float minXSpeed = 2f;
     [SerializeField]
@@ -15,6 +23,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     float maxYSpeed = 2f;
 
+    //private variables
     private Transform _transform;
     private Vector2 _currentSpeed;
     private Vector2 _currentPosition;
@@ -23,6 +32,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         _transform = gameObject.GetComponent<Transform>();
+        //starts the difficult level by cloning bird object
         StartCoroutine(StartDifficultLevel());
         Reset();
     }
@@ -52,12 +62,13 @@ public class EnemyController : MonoBehaviour
         _transform.position = new Vector2(112 + Random.Range(0, 50), y);
     }
 
+    //clones gameobject according to the time and increases the difficulty level for player
     IEnumerator StartDifficultLevel()
     {
         if(GameObject.FindGameObjectsWithTag("Enemy").Length < 10)
         {
             int time = Random.Range(10, 20);
-
+            //waits for few seconds and then it will continue running the method
             yield return new WaitForSeconds((float)time);
             Instantiate(gameObject);
             StartCoroutine(StartDifficultLevel());

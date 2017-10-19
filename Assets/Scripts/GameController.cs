@@ -3,10 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
+//////////////////////////////////////////////////////////////////////// 
+//                    COMP3064 CRN13899 Assignment 1                  //
+//                       Friday, October 20, 2016                     //
+//                    Instructor: Przemyslaw Pawluk                   //
+//                     Vishvajit Kher  - 101015270                    //
+//                    vishvajit.kher@georgebrown.ca                   //
+////////////////////////////////////////////////////////////////////////
+
+//Controller class for canvas and event handlers
 public class GameController : MonoBehaviour {
 
-    
+    //some variables
     [SerializeField]
     public Text Menu;
     [SerializeField]
@@ -27,11 +37,14 @@ public class GameController : MonoBehaviour {
     [SerializeField]
     public static GameController Instance;
 
+    //plays the game in its default stage
+    //activates and deactivates some canvas as per the need
     private void initialize()
     {
-        
+        //sets score and health to default values
         Player.Instance.Score = 0;
         Player.Instance.Health = 100;
+        //gets high score from previous playerprefs save data
         Player.Instance.HighScore = PlayerPrefs.GetInt("highScore");
         HighScore.gameObject.SetActive(false);
         button.gameObject.SetActive(false);
@@ -44,7 +57,8 @@ public class GameController : MonoBehaviour {
     }
 
 
-
+    //this method is invoke when player health is zero and it stops the game
+    //activates and deactivates some canvas
     public void gameOver()
     {
         StopGame();
@@ -56,15 +70,15 @@ public class GameController : MonoBehaviour {
         CurrentScore.gameObject.SetActive(true);
         Health.gameObject.SetActive(false);
         Score.gameObject.SetActive(false);
-        Menu.text = Menu.text + "\nGame Over";
-        buttonText.text = "Retry";
+        buttonText.text = "Retry Game";
     }
 
+    //this method is called when the game start and it will not play unless player clicks start button
     public void gameStart()
     {
         StopGame();
+        //gets high score from previous save data
         Player.Instance.HighScore = PlayerPrefs.GetInt("highScore");
-        PlayerPrefs.SetInt("hasPlayed", 0);
         HighScore.gameObject.SetActive(true);
         Quit.gameObject.SetActive(true);
         button.gameObject.SetActive(true);
@@ -72,10 +86,41 @@ public class GameController : MonoBehaviour {
         CurrentScore.gameObject.SetActive(false);
         Health.gameObject.SetActive(false);
         Score.gameObject.SetActive(false);
-        buttonText.text = "Start";
+        buttonText.text = "Start Game";
 
     }
 
+    //this method is called when the game pause and it will not play unless player clicks resume button
+    public void gamePause()
+    {
+        Time.timeScale = 0;
+        PlayerPrefs.Save();
+        HighScore.gameObject.SetActive(true);
+        button.gameObject.SetActive(true);
+        Quit.gameObject.SetActive(true);
+        Menu.gameObject.SetActive(true);
+        CurrentScore.gameObject.SetActive(true);
+        Health.gameObject.SetActive(false);
+        Score.gameObject.SetActive(false);
+        buttonText.text = "Resume Game";
+
+    }
+
+    //this method is called when the resume button is click
+    public void closePause()
+    {
+        Time.timeScale = 1;
+        PlayerPrefs.Save();
+        HighScore.gameObject.SetActive(false);
+        button.gameObject.SetActive(false);
+        Quit.gameObject.SetActive(false);
+        Menu.gameObject.SetActive(false);
+        CurrentScore.gameObject.SetActive(false);
+        Health.gameObject.SetActive(true);
+        Score.gameObject.SetActive(true);
+    }
+
+    //this method is invoke when there is change in score, health, highscore and currentscore
     public void updateUI()
     {
         Health.text = "Health: " + Player.Instance.Health;
@@ -88,6 +133,9 @@ public class GameController : MonoBehaviour {
     void Start()
     {
         Player.Instance.gameController = this;
+        //sets score and health to default values
+        Player.Instance.Score = 0;
+        Player.Instance.Health = 100;
         gameStart();
         
     }
@@ -95,26 +143,42 @@ public class GameController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //pauses the game
         if (Input.GetKey(KeyCode.Escape))
         {
-            gameOver();
-            buttonText.text = "Resume";
+            //calls gameover method to pause the game
+            gamePause();
         }
     }
 
+    //this method starts the game and sets the timescale => 1 regardless of it's current state
     public void RestartButton()
     {
-        initialize();
-        Time.timeScale = 1;
+        if(buttonText.text != "Resume Game")
+        {
+            initialize();
+            Time.timeScale = 1;
+        }
+        else
+        {
+            closePause();
+        }
+        
     }
 
+    //this method will close the application
     public void QuitButton()
     {
         PlayerPrefs.Save();
-        UnityEditor.EditorApplication.isPlaying = false;
+        if(EditorApplication.isPlaying)
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+        }
+        
         Application.Quit();
     }
 
+    //this method will stop the gameobjects and sets the timescale => zero
     public void StopGame(bool stop = true)
     {
 

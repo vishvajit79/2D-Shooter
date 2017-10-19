@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//////////////////////////////////////////////////////////////////////// 
+//                    COMP3064 CRN13899 Assignment 1                  //
+//                       Friday, October 20, 2016                     //
+//                    Instructor: Przemyslaw Pawluk                   //
+//                     Vishvajit Kher  - 101015270                    //
+//                    vishvajit.kher@georgebrown.ca                   //
+////////////////////////////////////////////////////////////////////////
+
+//player collision script for explosion animation and player losing health
 public class PlayerCollision : MonoBehaviour {
+
+    //variables
     [SerializeField]
     GameController gameController;
     [SerializeField]
     GameObject explosion;
 
+    //explosion audio source
     private AudioSource _explosionSound;
 
 	// Use this for initialization
 	void Start () {
         _explosionSound = gameObject.GetComponent<AudioSource>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
+    //flashes player after collision for 3 times
     private IEnumerator Blink()
     {
         Color c;
@@ -44,18 +52,25 @@ public class PlayerCollision : MonoBehaviour {
 
     }
 
+    //when player collides with another collider, this method is called
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        //if player collides with enemy, it loses 10% of its current health
         if (collision.gameObject.tag.Equals("Enemy"))
         {
             Debug.Log("Enemy collision\n");
+            //plays explosion sound if it's not null
             if(_explosionSound != null)
             {
                 _explosionSound.Play();
             }
+            //plays explosion animation
             Instantiate (explosion).GetComponent<Transform>().position = collision.gameObject.GetComponent<Transform>().position;
+            //resets the position of enemy
             collision.gameObject.GetComponent<EnemyController>().Reset();
+            //player loses its 10% health
             Player.Instance.Health -= 10;
+            //calls blink coroutine to flash player when it collides with enemy
             StartCoroutine("Blink");
         }
     }
