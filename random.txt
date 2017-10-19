@@ -1,47 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class TiledBackground : MonoBehaviour {
+public class PixelPerfectCamera : MonoBehaviour {
 
-	public int textureSize = 32;
-	public bool scaleHorizontially = true;
-	public bool scaleVertically = true;
+	public static float pixelsToUnits = 1f;
+	public static float scale = 1f;
 
-	// Use this for initialization
-	void Start () {
-	
-		var newWidth = !scaleHorizontially ? 1 : Mathf.Ceil (Screen.width / (textureSize * PixelPerfectCamera.scale));
-		var newHeight = !scaleVertically ? 1 : Mathf.Ceil (Screen.height / (textureSize * PixelPerfectCamera.scale));
+	public Vector2 nativeResolution = new Vector2 (240, 160);
 
-		transform.localScale = new Vector3 (newWidth * textureSize, newHeight * textureSize, 1);
+	void Awake () {
+		var camera = GetComponent<Camera> ();
 
-		GetComponent<Renderer> ().material.mainTextureScale = new Vector3 (newWidth, newHeight, 1);
+		if (camera.orthographic) {
+			scale = Screen.height/nativeResolution.y;
+			pixelsToUnits *= scale;
+			camera.orthographicSize = (Screen.height / 2.0f) / pixelsToUnits;
+		}
 	}
 
-}
-
-
-using UnityEngine;
-using System.Collections;
-
-public class AnimatedTexture : MonoBehaviour {
-
-	public Vector2 speed = Vector2.zero;
-
-	private Vector2 offset = Vector2.zero;
-	private Material material;
-
-	// Use this for initialization
-	void Start () {
-		material = GetComponent<Renderer> ().material;
-
-		offset = material.GetTextureOffset ("_MainTex");
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		offset += speed * Time.deltaTime;
-
-		material.SetTextureOffset ("_MainTex", offset);
-	}
 }
