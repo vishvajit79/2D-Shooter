@@ -4,7 +4,7 @@ using UnityEngine;
 
 //////////////////////////////////////////////////////////////////////// 
 //                    COMP3064 CRN13899 Assignment 1                  //
-//                       Friday, October 20, 2016                     //
+//                       Friday, October 20, 2017                     //
 //                    Instructor: Przemyslaw Pawluk                   //
 //                     Vishvajit Kher  - 101015270                    //
 //                    vishvajit.kher@georgebrown.ca                   //

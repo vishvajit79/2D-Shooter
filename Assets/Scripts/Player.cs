@@ -4,7 +4,7 @@ using UnityEngine;
 
 //////////////////////////////////////////////////////////////////////// 
 //                    COMP3064 CRN13899 Assignment 1                  //
-//                       Friday, October 20, 2016                     //
+//                       Friday, October 20, 2017                     //
 //                    Instructor: Przemyslaw Pawluk                   //
 //                     Vishvajit Kher  - 101015270                    //
 //                    vishvajit.kher@georgebrown.ca                   //
@@ -48,12 +48,12 @@ public class Player
         set
         {
             _score = value;
-            gameController.updateUI();
+            gameController.UpdateUI();
             if(_score > _highScore)
             {
                 _highScore = _score;
                 PlayerPrefs.SetInt("highScore", _highScore);
-                gameController.updateUI();
+                gameController.UpdateUI();
             }
         }
     }
@@ -73,14 +73,14 @@ public class Player
                 //saving highscore before player dies
                 PlayerPrefs.Save();
                 //calls update method and updates the health in canvas
-                gameController.updateUI();
+                gameController.UpdateUI();
                 //calls gameover method
-                gameController.gameOver();
+                gameController.GameOver();
             }
             else
             {
                 //calls update method and updates the score in canvas
-                gameController.updateUI();
+                gameController.UpdateUI();
             }
         }
     }
@@ -99,11 +99,11 @@ public class Player
             if (_score > _highScore)
             {
                 _highScore = _score;
-                gameController.updateUI();
+                gameController.UpdateUI();
             }
             //sets highscore
             PlayerPrefs.SetInt("highScore", _highScore);
-            gameController.updateUI();
+            gameController.UpdateUI();
         }
     }
 }

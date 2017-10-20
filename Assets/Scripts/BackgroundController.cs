@@ -4,7 +4,7 @@ using UnityEngine;
 
 //////////////////////////////////////////////////////////////////////// 
 //                    COMP3064 CRN13899 Assignment 1                  //
-//                       Friday, October 20, 2016                     //
+//                       Friday, October 20, 2017                     //
 //                    Instructor: Przemyslaw Pawluk                   //
 //                     Vishvajit Kher  - 101015270                    //
 //                    vishvajit.kher@georgebrown.ca                   //
@@ -41,7 +41,7 @@ public class BackgroundController : MonoBehaviour {
     void Update()
     {
         _currentPos = _transform.position;
-        //move ocean down
+        //move background from right to left
         _currentPos -= new Vector2(speed, 0);
 
         //check if we need to reset

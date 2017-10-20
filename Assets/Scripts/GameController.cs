@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 //////////////////////////////////////////////////////////////////////// 
 //                    COMP3064 CRN13899 Assignment 1                  //
-//                       Friday, October 20, 2016                     //
+//                       Friday, October 20, 2017                     //
 //                    Instructor: Przemyslaw Pawluk                   //
 //                     Vishvajit Kher  - 101015270                    //
 //                    vishvajit.kher@georgebrown.ca                   //
@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour {
 
     //plays the game in its default stage
     //activates and deactivates some canvas as per the need
-    private void initialize()
+    private void Initialize()
     {
         //sets score and health to default values
         Player.Instance.Score = 0;
@@ -58,7 +58,7 @@ public class GameController : MonoBehaviour {
 
     //this method is invoke when player health is zero and it stops the game
     //activates and deactivates some canvas
-    public void gameOver()
+    public void GameOver()
     {
         StopGame();
         PlayerPrefs.Save();
@@ -73,7 +73,7 @@ public class GameController : MonoBehaviour {
     }
 
     //this method is called when the game start and it will not play unless player clicks start button
-    public void gameStart()
+    public void GameStart()
     {
         StopGame();
         //gets high score from previous save data
@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour {
     }
 
     //this method is called when the game pause and it will not play unless player clicks resume button
-    public void gamePause()
+    public void GamePause()
     {
         Time.timeScale = 0;
         PlayerPrefs.Save();
@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour {
     }
 
     //this method is called when the resume button is click
-    public void closePause()
+    public void ClosePause()
     {
         Time.timeScale = 1;
         PlayerPrefs.Save();
@@ -120,7 +120,7 @@ public class GameController : MonoBehaviour {
     }
 
     //this method is invoke when there is change in score, health, highscore and currentscore
-    public void updateUI()
+    public void UpdateUI()
     {
         Health.text = "Health: " + Player.Instance.Health;
         Score.text = "Score: " + Player.Instance.Score;
@@ -135,7 +135,7 @@ public class GameController : MonoBehaviour {
         //sets score and health to default values
         Player.Instance.Score = 0;
         Player.Instance.Health = 100;
-        gameStart();
+        GameStart();
         
     }
 
@@ -146,7 +146,7 @@ public class GameController : MonoBehaviour {
         if (Input.GetKey(KeyCode.Escape))
         {
             //calls gameover method to pause the game
-            gamePause();
+            GamePause();
         }
     }
 
@@ -155,12 +155,12 @@ public class GameController : MonoBehaviour {
     {
         if(buttonText.text != "Resume Game")
         {
-            initialize();
+            Initialize();
             Time.timeScale = 1;
         }
         else
         {
-            closePause();
+            ClosePause();
         }
         
     }
