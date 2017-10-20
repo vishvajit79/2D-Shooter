@@ -168,7 +168,8 @@ public class GameController : MonoBehaviour {
     //this method will close the application
     public void QuitButton()
     {
-        PlayerPrefs.Save();        
+        PlayerPrefs.Save();
+        UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
 
